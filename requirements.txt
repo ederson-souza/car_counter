@@ -1,0 +1,8 @@
+numpy==1.19.5
+torch==1.7.0+cu101
+torchvision==0.8.1+cu101
+opencv-python==4.1.2
+detectron2==-f https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.7/index.html
+PyYAML==5.1
+pafy==0.5.5
+youtube_dl==2021.2.4.1
