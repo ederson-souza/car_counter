@@ -1,6 +1,7 @@
 numpy==1.19.5
-torch==1.7.0+cu101
-torchvision==0.8.1+cu101
+torch==1.7.0
+torchvision==0.8.1
+cudatoolkit==10.1
 opencv-python==4.1.2
 detectron2
 PyYAML==5.1
