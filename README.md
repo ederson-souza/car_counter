@@ -12,7 +12,8 @@
 
 ## Installation and Usage
 
-```1. git clone https://github.com/edinhoadm/car_counter.git
+```
+1. git clone https://github.com/edinhoadm/car_counter.git
 2. cd car_counter
 3. pip install -r requirements.txt
 
