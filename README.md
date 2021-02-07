@@ -6,7 +6,7 @@
 - PyTorch ≥ 1.5 and torchvision that matches the PyTorch installation.
 - OpenCV
 - Detectron2
--- For Detectron2 ensure you have gcc & g++ installed first.
+  - For Detectron2 ensure you have gcc & g++ installed first.
 - youtube_dl
 - Pafy
 
