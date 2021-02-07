@@ -135,8 +135,9 @@ if __name__ == '__main__':
   # Check whether the vehicle is inside of the detection box or not
     for box in boxes:
       if inside_box(box[0], detection_box):
-        line_new = 1
-        objects_new = objects_dict[box[1]]
+        if box[1] == 2 or box[1] == 3:  
+          line_new = 1
+          objects_new = objects_dict[box[1]]
         
         
   # Detection box color change
