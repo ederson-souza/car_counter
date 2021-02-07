@@ -29,5 +29,5 @@
 After that, just run `python car_detection.py`
 The processed video will be stored in the folder named "output".
 
-![]()
+![](output.gif)
 
