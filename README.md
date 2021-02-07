@@ -29,5 +29,5 @@
 After that, just run `python car_detection.py`
 The processed video will be stored in the folder named "output".
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/m-PcSnDryJk?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Watch the video](https://j.gifs.com/r8PAq4.gif)](https://www.youtube.com/watch?v=m-PcSnDryJk)
 
