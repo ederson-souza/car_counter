@@ -103,7 +103,7 @@ if __name__ == '__main__':
 
   # Detection Start
   while(cap.isOpened()):
-    print(f'{(num_frame/(total_frames-num_frame)*100):.2f}%', end='\r')
+    print(f'{(num_frame/total_frames*100):.2f}%', end='\r')
     if num_frame > total_frames:
       break
 
