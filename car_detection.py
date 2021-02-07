@@ -8,6 +8,8 @@ import youtube_dl
 import torch, torchvision
 import torch
 import detectron2
+import warnings
+warnings.filterwarnings("ignore")
 
 from detectron2.utils.logger import setup_logger
 setup_logger()
@@ -72,7 +74,6 @@ if __name__ == '__main__':
   # Set starting frame
   num_frame = 250
 
-
   line_old = 0
   objects_old = 'empty'
 
@@ -102,7 +103,8 @@ if __name__ == '__main__':
 
   # Detection Start
   while(cap.isOpened()):
-    if num_frame > 500:
+    print(f'{num_frame/(total_frame-num_frame):.2f}%', end='\r')
+    if num_frame > total_frames:
       break
 
     try:
