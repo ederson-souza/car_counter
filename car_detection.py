@@ -78,7 +78,7 @@ if __name__ == '__main__':
   objects_old = 'empty'
 
   # Dict of Vehicles to detect
-  objects_dict = {2 : 'car', 3 : 'motorcicle'}
+  objects_dict = {2 : 'car', 3 : 'motorcycle'}
 
   # Variables to store the counts
   lane_count = 0
@@ -100,10 +100,11 @@ if __name__ == '__main__':
 
   OUTPUT_PATH = os.path.join(CUR_DIR, 'output/result.mp4')
   video = cv2.VideoWriter(OUTPUT_PATH, cv2.VideoWriter_fourcc(*'mp4v'), 25, (int(width),int(height)),True)
-
+  
+  num_start_frame = num_frame
   # Detection Start
   while(cap.isOpened()):
-    print(f'{(num_frame/total_frames*100):.2f}%', end='\r')
+    print(f'{((num_frame-num_start_frame)/(total_frames-num_start_frame)*100):.2f}%', end='\r')
     if num_frame > total_frames:
       break
 
