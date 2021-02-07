@@ -17,7 +17,7 @@
 2. cd car_counter
 3. pip install -r requirements.txt
 
-If you don't have gcc and g++ do the following, else skip to step n. 7:
+# If you don't have gcc and g++ do the following, else skip to step n. 7:
 4. sudo apt update
 5. sudo apt install gcc
 6. sudo apt install g++
@@ -26,7 +26,7 @@ If you don't have gcc and g++ do the following, else skip to step n. 7:
 8. python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 ```
 
-After that, just run python car_detection.py
+After that, just run `python car_detection.py`
 The processed video will be stored in the folder named "output".
 
 
