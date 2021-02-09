@@ -109,7 +109,7 @@ if __name__ == '__main__':
       break
 
     try:
-      cap.set(1, num_frame)  
+      #cap.set(1, num_frame)  
       ret, frame = cap.read()
       output = predictor(frame)
     
@@ -157,13 +157,18 @@ if __name__ == '__main__':
   # Draw detection box 
     x1, y1, x2, y2 = detection_box
     blk = np.zeros(frame.shape, np.uint8)
-    cv2.rectangle(blk, (x1, y1), (x2, y2), color, cv2.FILLED)
+    cv2.polylines(blk,np.array([[[640,500],[805,500],[841,547],[654,547]]],np.int32), True, color, thickness=3)
+    cv2.fillPoly(blk,np.array([[[640,500],[805,500],[841,547],[654,547]]],np.int32), color)
     frame = cv2.addWeighted(frame, 1.0, blk, 0.25, 1)
 
   # Print  counts  
     frame = cv2.putText(frame,'Total = ' + str(lane_count), (500, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
     frame = cv2.putText(frame,'Carros = ' + str(objects_count['car']), (10, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
     frame = cv2.putText(frame,'Motos = ' + str(objects_count['motorcycle']), (250, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
+
+    cv2.imshow('Result', frame)
+    if cv2.waitKey(1) == 27:
+      break 
 
   # Record the output frame
     video.write(frame)
@@ -172,5 +177,6 @@ if __name__ == '__main__':
     num_frame += 1  
       
   cap.release()
+
   video.release()
 
