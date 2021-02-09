@@ -72,7 +72,7 @@ if __name__ == '__main__':
   total_frames = cap.get(cv2.CAP_PROP_FRAME_COUNT) 
 
   # Set starting frame
-  num_frame = 250
+  num_frame = 0
 
   line_old = 0
   objects_old = 'empty'
@@ -101,17 +101,19 @@ if __name__ == '__main__':
   OUTPUT_PATH = os.path.join(CUR_DIR, 'output/result.mp4')
   video = cv2.VideoWriter(OUTPUT_PATH, cv2.VideoWriter_fourcc(*'mp4v'), 25, (int(width),int(height)),True)
   
-  num_start_frame = num_frame
+  num_start_frame = 360
+
   # Detection Start
   while(cap.isOpened()):
-    print(f'{(num_frame-num_start_frame)}/{int(total_frames-num_start_frame)} - {((num_frame-num_start_frame)/(total_frames-num_start_frame)*100):.2f}%', end='\r')
-    if num_frame > total_frames:
-      break
 
     try:
-      #cap.set(1, num_frame)  
       ret, frame = cap.read()
-      output = predictor(frame)
+  
+      if num_frame >= num_start_frame:
+        output = predictor(frame)
+      else:
+        num_frame += 1
+        continue
     
     except:
       break
@@ -153,6 +155,7 @@ if __name__ == '__main__':
     
     line_old = line_new
     objects_old = objects_new
+
 
   # Draw detection box 
     x1, y1, x2, y2 = detection_box
