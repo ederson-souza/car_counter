@@ -106,80 +106,84 @@ if __name__ == '__main__':
   # Detection Start
   while(cap.isOpened()):
 
-    try:
-      ret, frame = cap.read()
-  
+    ret, frame = cap.read()
+    
+
+    if ret:
+
       if num_frame >= num_start_frame:
         output = predictor(frame)
       else:
         num_frame += 1
         continue
+
     
-    except:
-      break
-    
-    line_new = 0
-    objects_new = 'empty'
+      line_new = 0
+      objects_new = 'empty'
 
-  # List to store detected vehicles
-    boxes = []
+    # List to store detected vehicles
+      boxes = []
 
 
-    for i, box in enumerate(output['instances'].pred_boxes):
-      x1 = int(box[0].item())
-      y1 = int(box[1].item())
-      x2 = int(box[2].item())
-      y2 = int(box[3].item())
-      if x1 < width/2 + 200: # if x1 is before end of the right lane then store the box
-        boxes.append([[x1, y1, x2, y2], output['instances'].pred_classes[i].item()])
+      for i, box in enumerate(output['instances'].pred_boxes):
+        x1 = int(box[0].item())
+        y1 = int(box[1].item())
+        x2 = int(box[2].item())
+        y2 = int(box[3].item())
+        if x1 < width/2 + 200: # if x1 is before end of the right lane then store the box
+          boxes.append([[x1, y1, x2, y2], output['instances'].pred_classes[i].item()])
 
 
-  # Check whether the vehicle is inside of the detection box or not
-    for box in boxes:
-      if inside_box(box[0], detection_box):
-        if box[1] == 2 or box[1] == 3:  
-          line_new = 1
-          objects_new = objects_dict[box[1]]
-        
-        
-  # Detection box color change
-    if line_new == 1:
-      color = RED
-    else:
-      color = WHITE    
-        
-    
-    if (line_old != line_new) and line_new == 1:
-      lane_count += 1
-      objects_count[objects_new] += 1 
-    
-    line_old = line_new
-    objects_old = objects_new
-
-
-  # Draw detection box 
-    x1, y1, x2, y2 = detection_box
-    blk = np.zeros(frame.shape, np.uint8)
-    cv2.polylines(blk,np.array([[[640,500],[805,500],[841,547],[654,547]]],np.int32), True, color, thickness=3)
-    cv2.fillPoly(blk,np.array([[[640,500],[805,500],[841,547],[654,547]]],np.int32), color)
-    frame = cv2.addWeighted(frame, 1.0, blk, 0.25, 1)
-
-  # Print  counts  
-    frame = cv2.putText(frame,'Total = ' + str(lane_count), (500, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
-    frame = cv2.putText(frame,'Carros = ' + str(objects_count['car']), (10, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
-    frame = cv2.putText(frame,'Motos = ' + str(objects_count['motorcycle']), (250, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
-
-    cv2.imshow('Result', frame)
-    if cv2.waitKey(1) == 27:
-      break 
-
-  # Record the output frame
-    video.write(frame)
-
-  # Go to the next frame
-    num_frame += 1  
+    # Check whether the vehicle is inside of the detection box or not
+      for box in boxes:
+        if inside_box(box[0], detection_box):
+          if box[1] == 2 or box[1] == 3:  
+            line_new = 1
+            objects_new = objects_dict[box[1]]
+          
+          
+    # Detection box color change
+      if line_new == 1:
+        color = RED
+      else:
+        color = WHITE    
+          
       
-  cap.release()
+      if (line_old != line_new) and line_new == 1:
+        lane_count += 1
+        objects_count[objects_new] += 1 
+      
+      line_old = line_new
+      objects_old = objects_new
 
-  video.release()
+
+    # Draw detection box 
+      x1, y1, x2, y2 = detection_box
+      blk = np.zeros(frame.shape, np.uint8)
+      cv2.polylines(blk,np.array([[[640,500],[805,500],[841,547],[654,547]]],np.int32), True, color, thickness=3)
+      cv2.fillPoly(blk,np.array([[[640,500],[805,500],[841,547],[654,547]]],np.int32), color)
+      frame = cv2.addWeighted(frame, 1.0, blk, 0.25, 1)
+
+    # Print  counts  
+      frame = cv2.putText(frame,'Total = ' + str(lane_count), (500, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
+      frame = cv2.putText(frame,'Carros = ' + str(objects_count['car']), (10, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
+      frame = cv2.putText(frame,'Motos = ' + str(objects_count['motorcycle']), (250, 60), FONT, FONT_SIZE, BLACK, THICKNESS)
+
+      cv2.imshow('Result', frame)
+      if cv2.waitKey(1) == 27:
+        cap.release()
+        cv2.destroyAllWindows()
+        video.release()
+        break 
+
+    # Record the output frame
+      video.write(frame)
+
+    # Go to the next frame
+      num_frame += 1  
+
+    else:  
+      cap.release()
+      cv2.destroyAllWindows()
+      video.release()
 
